@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VidiPay</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#061512;color:#edfffa;
+ font-family:Arial,sans-serif;padding:20px;
+}
+header{display:flex;justify-content:space-between;align-items:center;margin:12px 0 25px}
+.logo{font-size:30px;font-weight:bold}
+.tag{color:#39d8b9;border:1px solid #258c78;padding:9px;border-radius:20px}
+.card{
+ background:#112b26;border:1px solid #285b50;
+ border-radius:23px;padding:23px;margin-bottom:18px;
+}
+.small{color:#a8c1b9}
+.balance{font-size:48px;font-weight:bold;margin:12px 0}
+h2{font-size:23px}
+button{
+ width:100%;padding:16px;border:0;border-radius:15px;
+ background:linear-gradient(100deg,#54e6c4,#20b99e);
+ color:#05231d;font-size:17px;font-weight:bold;
+ margin-top:12px;cursor:pointer;
+}
+.video{margin-top:18px}
+.video a{color:#51e1c1;text-decoration:none}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stat{background:#10251f;padding:17px;border-radius:17px}
+.stat strong{display:block;font-size:25px;margin-top:8px}
+nav{display:flex;justify-content:space-around;gap:8px;margin-top:25px}
+nav a{color:#9bb5ad;text-decoration:none;font-size:13px}
+footer{text-align:center;color:#829d94;font-size:12px;margin:25px 0}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="logo">▶ VidiPay</div>
+ <div class="tag">BETA · DEMO</div>
+</header>
+
+<section class="card">
+ <div class="small">МОЙ ДЕМО-БАЛАНС</div>
+ <div class="balance"><span id="coins">0</span> 🪙</div>
+ <div class="small">Виртуальные монеты VidiPay</div>
+ <p class="small">Это демонстрационный баланс. Монеты не являются деньгами и не выводятся.</p>
+</section>
+
+<div class="stats">
+ <div class="stat">
+  <span class="small">Видео</span>
+  <strong id="views">0</strong>
+ </div>
+ <div class="stat">
+  <span class="small">Демо-награды</span>
+  <strong id="tasks">0</strong>
+ </div>
+</div>
+
+<section class="card video">
+ <h2>Начни знакомство</h2>
+ <p class="small">Смотри официальные видео MrBeast.</p>
+ <a href="https://www.youtube.com/@MrBeast" target="_blank">
+  Открыть канал MrBeast ↗
+ </a>
+ <button id="watch" onclick="watchVideo()">
+  Начать демо-просмотр
+ </button>
+ <p class="small" id="message">Нажми кнопку, чтобы попробовать демо.</p>
+</section>
+
+<section class="card">
+ <h2>Telegram</h2>
+ <p class="small">Открывай нашего Telegram-бота VidiPay.</p>
+ <a href="https://t.me/VidiPayMrBoT" target="_blank">
+  <button>Открыть Telegram</button>
+ </a>
+</section>
+
+<section class="card">
+ <h2>История</h2>
+ <div id="history" class="small">Пока нет операций.</div>
+</section>
+
+<nav>
+ <a href="#">⌂ Главная</a>
+ <a href="https://www.youtube.com/@MrBeast">▶ Видео</a>
+ <a href="#coins">🪙 Баланс</a>
+ <a href="#history">◷ История</a>
+</nav>
+
+<footer>
+ VidiPay © 2026<br>
+ DEMO VERSION — виртуальные монеты не являются деньгами.
+</footer>
+
+<script>
+let coins=0,views=0,tasks=0,busy=false;
+
+function watchVideo(){
+ if(busy)return;
+ busy=true;
+ let button=document.getElementById("watch");
+ let message=document.getElementById("message");
+ button.disabled=true;
+ let seconds=10;
+ button.innerText="Демо-просмотр: "+seconds+" сек.";
+
+ let timer=setInterval(()=>{
+  seconds--;
+  button.innerText="Демо-просмотр: "+seconds+" сек.";
+  if(seconds<=0){
+   clearInterval(timer);
+   coins+=5;views++;tasks++;
+   document.getElementById("coins").innerText=coins;
+   document.getElementById("views").innerText=views;
+   document.getElementById("tasks").innerText=tasks;
+   message.innerText="Добавлено 5 виртуальных демо-монет!";
+   document.getElementById("history").innerHTML=
+    "Демо-просмотр — +5 виртуальных монет";
+   button.innerText="Начать следующий демо-просмотр";
+   button.disabled=false;
+   busy=false;
+  }
+ },1000);
+}
+</script>
+</body>
+</html>
